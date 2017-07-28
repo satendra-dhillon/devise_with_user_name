@@ -1,18 +1,16 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_user!
+  helper_method :current_user
 
   
   before_action :configure_permitted_parameters, if: :devise_controller?
   
+  private
 
-  #   def login=(login)
-  #   @login = login
-  # end
-
-  # def login
-  #   @login || self.username || self.email
-  # end
+  def current_user
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+  end
 
   protected
 
