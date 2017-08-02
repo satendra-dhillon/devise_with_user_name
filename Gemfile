@@ -32,9 +32,16 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+gem 'simple_form'
+gem 'bootstrap-sass', '~> 3.2.0'
+gem 'ckeditor'
+gem 'paperclip'
+
 gem 'devise'
 gem "omniauth"
 gem "omniauth-twitter"
+gem 'omniauth-facebook'
+gem 'oauth2'
 
 
 group :development, :test do

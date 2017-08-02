@@ -5,12 +5,18 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :authentication_keys => [:login]
 
+  has_many :comments, dependent: :destroy, foreign_key: 'commenter_id'
+  has_many :blogs, dependent: :destroy, foreign_key: 'blogger_id'
 
-  validates :user_name,
-  :presence => true,
-  :uniqueness => {
-    :case_sensitive => false
-  } # etc.
+  def full_name
+    self.first_name + " " + self.last_name
+  end
+
+  # validates :user_name,
+  # :presence => true,
+  # :uniqueness => {
+  #   :case_sensitive => false
+  # } # etc.
 
 
   def self.find_for_database_authentication(warden_conditions)
@@ -24,11 +30,16 @@ class User < ApplicationRecord
 
   def self.create_with_omniauth(auth)
     create! do |user|
-      user.provider = auth["provider"]
-      user.uid = auth["uid"]
-      user.first_name = auth["info"]["name"].split(" ")[0]
-      user.last_name = auth["info"]["name"].split(" ")[1]
-      user.user_name = auth["info"]["nickname"]
+        # binding.pry
+      if auth["provider"] == "facebook"
+        user.provider = auth["provider"]
+        user.uid = auth["uid"]
+        user.first_name = auth["info"]["name"].split(" ")[0]
+        user.last_name = auth["info"]["name"].split(" ")[1]
+        user.email = auth["info"]["email"]
+        user.password = "123456"
+        # user.user_name = auth["info"]["nickname"]
+      end
     end
   end
 end

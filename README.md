@@ -26,3 +26,5 @@ Things you may want to cover:
 
 
 https://stackoverflow.com/questions/39044670/rails-devise-twitter-oauth-redirect-to-form-to-continue-oauth-registration
+\
+http://rubythursday.com/episodes/ruby-snack-27-upgrade-paperclip-and-aws-sdk-in-prep-for-rails-5
